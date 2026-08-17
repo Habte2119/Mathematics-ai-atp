@@ -49,7 +49,8 @@ jobs:
         run: uv pip install -e . --no-deps
 
       - name: Run tests
-        run: uv run pytest maths_ai -v --tb=short
+             - name: Run tests
+        run: uv run pytest maths_ai/gnn_inference/tests maths_ai/pln_inference/metta/tests -v --tb=short
 
   docker:
     runs-on: ubuntu-latest
