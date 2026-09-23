@@ -40,12 +40,6 @@ ENV PATH="/root/.local/bin:${PATH}"
 COPY lean_project/ /opt/lean_project/
 WORKDIR /opt/lean_project
 
-# Configure git for reliable cloning (longer timeouts, HTTP/2)
-RUN git config --global http.lowSpeedLimit 0 && \
-    git config --global http.lowSpeedTime 999999 && \
-    git config --global http.postBuffer 524288000 && \
-    git config --global http.version HTTP/1.1
-
 # Build Lean project with Mathlib cache
 # Uses BuildKit cache mount for .lake directory
 RUN elan toolchain install leanprover/lean4:v4.15.0
