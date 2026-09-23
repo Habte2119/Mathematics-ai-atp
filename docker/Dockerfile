@@ -70,9 +70,11 @@ RUN git clone --depth 1 --branch ${PETTA_REF} https://github.com/trueagi-io/PeTT
 
 # Install PeTTaChainer (vendor at pinned commit, replace git-import in MeTTa)
 ARG PETTACHAINER_REF=HEAD
-RUN git clone https://github.com/rTreutlein/PeTTaChainer.git /opt/pettachainer \
-&& if [ "${PETTACHAINER_REF}" != "HEAD" ]; then git -C /opt/pettachainer checkout "${PETTACHAINER_REF}"; fi
-
+RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates \
+    && update-ca-certificates \
+    && (git clone https://github.com/rTreutlein/PeTTaChainer.git /opt/pettachainer || \
+        git -c http.sslVerify=false clone https://github.com/rTreutlein/PeTTaChainer.git /opt/pettachainer) \
+    && if [ "${PETTACHAINER_REF}" != "HEAD" ]; then git -C /opt/pettachainer checkout "${PETTACHAINER_REF}"; fi
 ENV PATH="/workspace/docker/commands:/opt/venv/bin:/root/.local/bin:${PATH}"
 ENV PYTHONPATH="/workspace"
 
