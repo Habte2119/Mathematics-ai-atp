@@ -69,7 +69,7 @@ RUN git clone --depth 1 --branch ${PETTA_REF} https://github.com/trueagi-io/PeTT
     && uv pip install --python /opt/venv/bin/python /opt/petta
 
 # Install PeTTaChainer (vendored locally to bypass missing/private GitHub repo)
-COPY vendor/PeTTaChainer /opt/pettachainer
+COPY experiments/pettaChainer_pln /opt/pettachainer
 
 ENV PATH="/workspace/docker/commands:/opt/venv/bin:/root/.local/bin:${PATH}"
 ENV PYTHONPATH="/workspace"
