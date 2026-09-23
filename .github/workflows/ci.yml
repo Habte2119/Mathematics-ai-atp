@@ -60,7 +60,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Build Docker image
-        run: docker build --target core -f docker/Dockerfile -t maths-ai:test .
-
+        run: |
+          docker build --no-cache --target core -f docker/Dockerfile -t maths-ai:test .
       - name: Test Docker image
         run: docker run --rm maths-ai:test skip-fetch python -m maths_ai.healthcheck
